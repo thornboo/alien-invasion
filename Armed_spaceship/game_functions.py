@@ -5,7 +5,7 @@ import sys
 import pygame
 
 from bullet import Bullet
-from alien import Alien
+import alien as Alien
 
 
 def check_keydown_events(event , ai_settings , screen , ship , bullets):
