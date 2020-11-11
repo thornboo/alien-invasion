@@ -7,6 +7,7 @@ import pygame
 from bullet import Bullet
 from alien import Alien
 
+
 def check_keydown_events(event , ai_settings , screen , ship , bullets):
     """响应按键"""
     if event.key == pygame.K_RIGHT:
@@ -49,10 +50,10 @@ def update_screen(ai_settings , screen , ship , aliens , bullets):
     screen.fill(ai_settings.bg_color)
     
     #在飞船和外星人后面重绘所有子弹
-    for bullet in bullets.sprites():
+    for bullet in bullets:
         bullet.draw_bullet()
     ship.blitme()
-    aliens.blitme()
+    aliens.draw(screen)
     
     #让最近绘制的屏幕可见
     pygame.display.flip()
