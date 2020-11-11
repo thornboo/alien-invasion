@@ -81,7 +81,7 @@ def create_fleet(ai_settings , screen , aliens):
     #创建第一行外星人
     for alien_number in range(number_aliens_x):
         #创建一个外星人并将其加入当前行
-        alien = Aliens(ai_settings , screen)
+        alien = Aliens.Alien_a(ai_settings , screen)
         alien.x = alien_width + 2 * alien_width * alien_number
         alien.rect.x =alien.x
         aliens.add(alien)
