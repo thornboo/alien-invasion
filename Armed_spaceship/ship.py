@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 
+import os
 import pygame
+
 
 class Ship():
     
     def __init__(self ,ai_settings ,screen):
         self.screen = screen
         self.ai_settings = ai_settings
+        self.dir_name = os.path.dirname(os.path.abspath(__file__))
         
         #加载飞船图像并获取其外接矩形
-        path = pygame.image.load (r'D:\github\alien_invasion\Armed_spaceship\images\ship.bmp')
+        path = pygame.image.load(os.path.join(self.dir_name, "images", "ship.bmp"))
         self.image = pygame.transform.scale(path, (20,20))  #飞船图片的尺寸
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
