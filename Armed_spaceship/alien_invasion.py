@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-import alien.aliens as Alien
+import alien as Alien
 import pygame
 from pygame.sprite import Group
 from settings import Settings
