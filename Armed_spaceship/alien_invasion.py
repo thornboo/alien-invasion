@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-import alien as Alien
+import alien.aliens as Alien
 import pygame
 from pygame.sprite import Group
 from settings import Settings
@@ -26,7 +26,7 @@ def run_game():
     bullets = Group()
     
     #创建一个外星人
-    #alien = Alien(ai_settings , screen)
+    alien = Alien(ai_settings , screen)
     
     #开始游戏主循环
     while True:
