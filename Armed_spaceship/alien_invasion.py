@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
-import alien as Alien
+sys.path.append("..")
+import Create_alien.alien as Aliens
+
 import pygame
 from pygame.sprite import Group
 from settings import Settings
@@ -15,7 +17,7 @@ def run_game():
     pygame.display.set_caption( "Alien Invasion" )
     
     #创建一艘飞船、一个子弹编组和一个外星人编组
-    ship = Ship( ai_settings , screen )
+    ship = Ship( ai_settings, screen )
     bullets = Group()
     aliens = Group()
     
@@ -26,7 +28,7 @@ def run_game():
     bullets = Group()
     
     #创建一个外星人
-    alien = Alien(ai_settings , screen)
+    alien = Aliens.Alien_a(ai_settings , screen)
     
     #开始游戏主循环
     while True:
