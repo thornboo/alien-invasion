@@ -9,3 +9,4 @@
 可以使用os.path模块来载入路径
 3. 导入包这里你还是没弄懂，仔细学习一下。import Create_alien.alien as Aliens
 这句话代表的什么意思，如果要用alien文件里面的Alien_a这个类又应该怎么使用
+4. 在每次commit的时候一定要写清楚这次干了些啥，别随便写个a就了事了，养成好的习惯！
