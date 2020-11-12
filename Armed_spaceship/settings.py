@@ -10,12 +10,12 @@ class Settings():
         self.screen_height = 600
         self.bg_color = (230 , 230 , 230)
         
-        #飞船的设置
+        #飞船设置
         self.ship_speed_factor = 0.5  #飞船速度
         
         #子弹设置
-        self.bullet_speed_factor = 0.1  #子弹速度
+        self.bullet_speed_factor = 1  #子弹速度
         self.bullet_width = 3
         self.bullet_height = 15
-        self.bullet_color = 60 , 60 , 60
-        self.bullets_allowed = 2
+        self.bullet_color = 60 , 60 , 60 #子弹颜色
+        self.bullets_allowed = 5  #子弹个数
