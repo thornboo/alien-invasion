@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import sys
 sys.path.append("..")
 import Create_alien.alien as Aliens
@@ -21,13 +22,11 @@ def run_game():
     #创建一艘飞船、一个子弹编组和一个外星人编组
     ship = Ship( ai_settings, screen)
     aliens = Group()
-    
+    bullets = Group()
+
     #创建外星人群
     gf.create_fleet(ai_settings, screen, ship, aliens)
         
-    #创建一个用于存储子弹的编组
-    bullets = Group()
-    
     #创建一行外星人
     alien = Aliens.Alien_a(ai_settings , screen)
     
@@ -41,5 +40,6 @@ def run_game():
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)
         
 #        gf.large_bullet(ai_settings, bullet)
+        gf.Collision_detection(aliens, bullets)
 
 run_game()
