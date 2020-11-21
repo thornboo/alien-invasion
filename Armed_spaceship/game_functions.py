@@ -2,7 +2,6 @@
 
 import sys
 import pygame
-
 sys.path.append("..")
 import Create_alien.alien as Aliens
 from bullet import Bullet
@@ -31,7 +30,6 @@ def check_keyup_events(event,ship):
         ship.moving_right = False
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
-
 
 def check_events(ai_settings, screen, ship, bullet):
     """响应按键和鼠标事件"""
@@ -66,9 +64,18 @@ def update_bullets(aliens, bullets):
     for bullet in bullets.copy() :
         if bullet.rect.bottom <= 0 :
             bullets.remove (bullet)
-            
+
+def Collision_detection(aliens, bullets):
+    """检测子弹是否击中外星人，若击中则删除外星人和子弹"""
+    for alien in aliens:
+        for bullet in bullets:
+            if (bullet.x - alien.rect.x) < alien.rect.x:
+                if (bullet.y - alien.rect.y) < alien.rect.y:
+                    aliens.remove(alien)
+                    bullets.remove(bullet)
+
     #检查是否有子弹击中外星人;如果有，就删除相应的子弹和外星人。
-    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+#    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
 
 def get_number_aliens_x(ai_settings, alien_width):
     """计算每行可以容纳多少个外星人"""
@@ -106,7 +113,6 @@ def create_fleet(ai_settings , screen, ship, aliens):
         for alien_number in range(number_aliens_x):
             create_alien(ai_settings, screen, aliens, alien_number, row_number)
             
-    
 def check_fleet_edges(ai_settings, aliens):
     """有外星人到达边缘时采取相应的措施"""
     for alien in aliens.sprites():
@@ -130,6 +136,3 @@ def large_bullet(ai_settings,bullets):
     if bullets.y <= ai_settings.screen_height / 2 :
         ai_settings.bullet_width = ai_settings.bullet_width * 2
         ai_settings.bullet_height = ai_settings.bullet_height * 2
-    
-        
-
