@@ -12,11 +12,9 @@ class Alien_a(Sprite):
         self.screen = screen
         self.ai_settings = ai_settings
         self.dir_name = os.path.dirname(os.path.abspath(__file__))
-
-        #加载外星人图像，并设置其rect属性
         path = pygame.image.load(os.path.join(self.dir_name, "image", "alien.bmp"))
         self.image = pygame.transform.scale(path, (20, 20))
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect()    
     
         #每个外星人最初都在屏幕左上角附近
         self.rect.x = self.rect.width
@@ -33,6 +31,9 @@ class Alien_a(Sprite):
         """"向左或向右移动外星人"""
         self.x += (self.ai_settings.alien_speed_factor * self.ai_settings. \
                    fleet_direction)
+        self.dir_name = os.path.dirname(os.path.abspath(__file__))
+
+        #加载外星人图像，并设置其rect属性
         self.rect.x = self.x
         
     def check_edges(self):

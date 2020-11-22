@@ -61,20 +61,21 @@ def update_bullets(aliens, bullets):
     bullets.update()
 
     #删除已消失的子弹
-    for bullet in bullets.copy() :
+    for bullet in bullets.copy():
         if bullet.rect.bottom <= 0 :
             bullets.remove (bullet)
 
+    #第一种：判断子弹是否击中外星人代码
 def Collision_detection(aliens, bullets):
     """检测子弹是否击中外星人，若击中则删除外星人和子弹"""
     for alien in aliens:
         for bullet in bullets:
-            if (bullet.x - alien.rect.x) < alien.rect.x:
-                if (bullet.y - alien.rect.y) < alien.rect.y:
-                    aliens.remove(alien)
-                    bullets.remove(bullet)
+           if alien.rect.x < bullet.x < alien.rect.x+alien.rect.width:
+               if alien.rect.y < bullet.y < alien.rect.y+alien.rect.height:
+                   aliens.remove(alien)
+                   bullets.remove(bullet)
 
-    #检查是否有子弹击中外星人;如果有，就删除相应的子弹和外星人。
+    #第二种：检查是否有子弹击中外星人;如果有，就删除相应的子弹和外星人。
 #    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
 
 def get_number_aliens_x(ai_settings, alien_width):

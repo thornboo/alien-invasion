@@ -39,7 +39,9 @@ def run_game():
         gf.update_aliens(ai_settings, aliens)
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)
         
+        #第二种子弹击中外星人函数
 #        gf.large_bullet(ai_settings, bullet)
+        #第一种子弹击中外星人函数
         gf.Collision_detection(aliens, bullets)
 
 run_game()
