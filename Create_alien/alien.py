@@ -30,10 +30,7 @@ class Alien_a(Sprite):
 
     def update(self):
         """"向左或向右移动外星人"""
-        self.x += (self.ai_settings.alien_speed_factor * self.ai_settings. \
-                   fleet_direction)
-        self.dir_name = os.path.dirname(os.path.abspath(__file__))
-
+        self.x += (self.ai_settings.alien_speed_factor * self.ai_settings.fleet_direction)
         # 加载外星人图像，并设置其rect属性
         self.rect.x = self.x
 
