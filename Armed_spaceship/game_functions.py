@@ -90,14 +90,14 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
         create_fleet(ai_settings, screen, ship, aliens)
 
 
-# def Collision_detection(aliens, bullets):
-#     """第一种：检测子弹是否击中外星人，若击中则删除外星人和子弹"""
-#     for alien in aliens:
-#         for bullet in bullets:
-#             if alien.rect.x < bullet.x < alien.rect.x + alien.rect.width:
-#                 if alien.rect.y < bullet.y < alien.rect.y + alien.rect.height:
-#                     aliens.remove(alien)
-#                     bullets.remove(bullet)
+def Collision_detection(aliens, bullets):
+    """第一种：检测子弹是否击中外星人，若击中则删除外星人和子弹"""
+    for alien in aliens:
+        for bullet in bullets:
+            if alien.rect.x < bullet.x < alien.rect.x + alien.rect.width:
+                if alien.rect.y < bullet.y < alien.rect.y + alien.rect.height:
+                    aliens.remove(alien)
+                    bullets.remove(bullet)
 
 
 def get_number_aliens_x(ai_settings, alien_width):
