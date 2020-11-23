@@ -80,15 +80,15 @@ def Collision_detection(aliens, bullets):
 
 def get_number_aliens_x(ai_settings, alien_width):
     """计算每行可以容纳多少个外星人"""
-    available_space_x = ai_settings.screen_width - 2 * alien_width
-    number_aliens_x = int(available_space_x / (2 * alien_width))
+    available_space_x = ai_settings.screen_width - 4 * alien_width
+    number_aliens_x = int(available_space_x / (4 * alien_width))
     return number_aliens_x
 
 def get_number_rows(ai_settings,ship_height, alien_height):
     """计算屏幕可以容纳多少个外星人"""
-    available_space_y = (ai_settings.screen_height-(3 * alien_height)- \
+    available_space_y = (ai_settings.screen_height-(6 * alien_height)- \
                          ship_height)
-    number_rows = int(available_space_y / (2 * alien_height))
+    number_rows = int(available_space_y / (6 * alien_height))
     return number_rows
     
 def create_alien(ai_settings, screen, aliens, alien_number, row_number):
