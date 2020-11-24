@@ -75,19 +75,17 @@ def update_bullets(aliens, bullets):
     # 第一种：判断子弹是否击中外星人代码
 
 
-def Collision_detection(aliens, bullets):
+def collision_detection(aliens, bullets):
     """第一种：检测子弹是否击中外星人，若击中则删除外星人和子弹"""
     for alien in aliens:
         for bullet in bullets:
-            if alien.rect.x < bullet.x < alien.rect.x + alien.rect.width:
-                if alien.rect.y < bullet.y < alien.rect.y + alien.rect.height:
-                    aliens.remove(alien)
-                    bullets.remove(bullet)
+            if alien.rect.x < bullet.x < alien.rect.x + alien.rect.width and alien.rect.y < bullet.y < alien.rect.y + alien.rect.height:
+                aliens.remove(alien)
+                bullets.remove(bullet)
 
-    # 第二种：检查是否有子弹击中外星人;如果有，就删除相应的子弹和外星人。
+    # 第二种：检查是否有子弹击中外星人;如果有，就删除相应的子弹和外星人
+    # collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
 
-
-#    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
 
 def get_number_aliens_x(ai_settings, alien_width):
     """计算每行可以容纳多少个外星人"""
@@ -98,8 +96,7 @@ def get_number_aliens_x(ai_settings, alien_width):
 
 def get_number_rows(ai_settings, ship_height, alien_height):
     """计算屏幕可以容纳多少个外星人"""
-    available_space_y = (ai_settings.screen_height - (6 * alien_height) - \
-                         ship_height)
+    available_space_y = (ai_settings.screen_height - (6 * alien_height) - ship_height)
     number_rows = int(available_space_y / (6 * alien_height))
     return number_rows
 
@@ -120,8 +117,7 @@ def create_fleet(ai_settings, screen, ship, aliens):
     # 外星人间距为外星人宽度
     alien = Aliens.Alien_a(ai_settings, screen)
     number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
-    number_rows = get_number_rows(ai_settings, ship.rect.height, alien.rect. \
-                                  height)
+    number_rows = get_number_rows(ai_settings, ship.rect.height, alien.rect.height)
 
     # 创建外星人群
     for row_number in range(number_rows):
@@ -147,7 +143,11 @@ def change_fleet_direction(ai_settings, aliens):
 def update_aliens(ai_settings, aliens):
     """检查是否有外星人位于屏幕边缘，并更新整群外星人的位置"""
     check_fleet_edges(ai_settings, aliens)
-    aliens.update()
+    # aliens.update()
+    for alien in aliens:
+        alien.random_move_down()
+        if alien.check_bottom():
+            aliens.remove(alien)
 
 # def large_bullet(ai_settings, bullets):
 #     """将子弹放大一倍"""

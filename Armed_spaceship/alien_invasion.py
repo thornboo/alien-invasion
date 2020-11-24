@@ -26,13 +26,16 @@ def run_game():
     bullets = Group()
 
     # 创建外星人群
-    gf.create_fleet(ai_settings, screen, ship, aliens)
-
-    # 创建一行外星人
-    alien = Aliens.Alien_a(ai_settings, screen)
+    # gf.create_fleet(ai_settings, screen, ship, aliens)
 
     # 开始游戏主循环
     while True:
+        # 创建一个外星人
+        if len(aliens) <= 10:
+            alien = Aliens.Alien_a(ai_settings, screen)
+            alien.initial_random_location()
+            aliens.add(alien)
+
         # 监视键盘和鼠标事件
         gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
@@ -41,7 +44,7 @@ def run_game():
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
         # 第一种子弹击中外星人函数
-        gf.Collision_detection(aliens, bullets)
+        gf.collision_detection(aliens, bullets)
 
 
 run_game()
