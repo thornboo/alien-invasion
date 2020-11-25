@@ -9,7 +9,7 @@ from pygame.sprite import Sprite
 class Alien_a(Sprite):
     """表示单个外星人的类"""
 
-    def __init__(self, ai_settings, screen):
+    def __init__(self, ai_settings, screen, direction):
         """初始化外星人并设置其起始位置"""
         super(Alien_a, self).__init__()
         self.screen = screen
@@ -29,19 +29,20 @@ class Alien_a(Sprite):
 
         # 标记
         self.mark = ""
+        self.direction = direction
 
     def blitme(self):
         """在指定位置绘制外星人"""
         self.screen.blit(self.image, self.rect)
 
-    def update(self):
-        """"向左或向右移动外星人"""
-        self.x += (self.ai_settings.alien_speed_factor * self.ai_settings. \
-                   fleet_direction)
-        self.dir_name = os.path.dirname(os.path.abspath(__file__))
-
-        # 加载外星人图像，并设置其rect属性
-        self.rect.x = self.x
+    # def update(self):
+    #     """"向左或向右移动外星人"""
+    #     self.x += (self.ai_settings.alien_speed_factor * self.ai_settings. \
+    #                fleet_direction)
+    #     self.dir_name = os.path.dirname(os.path.abspath(__file__))
+    #
+    #     # 加载外星人图像，并设置其rect属性
+    #     self.rect.x = self.x
 
     def check_edges(self):
         """如果外星人位于屏幕便边缘，就返回True"""
@@ -51,6 +52,12 @@ class Alien_a(Sprite):
         elif self.rect.left <= 0:
             return True
 
+    def random_move(self):
+        self.y += self.ai_settings.alien_speed_factor * 1
+        self.x += self.direction * self.ai_settings.alien_speed_factor
+        self.rect.x = self.x
+        self.rect.y = self.y
+
     def random_move_down(self):
         self.y += self.ai_settings.alien_speed_factor * 1
         self.rect.y = self.y
@@ -58,10 +65,14 @@ class Alien_a(Sprite):
     def random_move_left(self):
         self.y += self.ai_settings.alien_speed_factor * 1
         self.x -= 0.1
+        self.rect.x = self.x
+        self.rect.y = self.y
 
     def random_move_right(self):
         self.y += self.ai_settings.alien_speed_factor * 1
         self.x += 0.1
+        self.rect.x = self.x
+        self.rect.y = self.y
 
     def check_bottom(self):
         """检查是否有外星人到达底部"""

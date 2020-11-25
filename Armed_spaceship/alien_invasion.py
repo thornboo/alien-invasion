@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import random
 import sys
 
 sys.path.append("..")
@@ -29,22 +30,23 @@ def run_game():
     bullets = Group()
 
     # 创建外星人群
-    gf.create_fleet(ai_settings, screen, ship, aliens)
+    # gf.create_fleet(ai_settings, screen, ship, aliens)
 
     # 开始游戏主循环
     while True:
         # 创建一个外星人
         if len(aliens) <= 10:
-            alien = Aliens.Alien_a(ai_settings, screen)
+            direction = random.choice([-1, 0, 1])  # 代表左，直， 右
+            alien = Aliens.Alien_a(ai_settings, screen, direction)  # 初始化的时候随机给一个方向
             alien.initial_random_location()
             aliens.add(alien)
 
         # 监视键盘和鼠标事件
         gf.check_events(ai_settings, screen, ship, bullets)
-        if stats.game_active:
-            ship.update()
-            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
-            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
+        # if stats.game_active:
+        ship.update()
+        gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+        gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
