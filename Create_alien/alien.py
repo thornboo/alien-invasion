@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 import pygame
+
+import random
 from pygame.sprite import Sprite
 
 
@@ -23,6 +25,10 @@ class Alien_a(Sprite):
 
         # 储存外星人的准确位置
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
+
+        # 标记
+        self.mark = ""
 
     def blitme(self):
         """在指定位置绘制外星人"""
@@ -44,3 +50,28 @@ class Alien_a(Sprite):
             return True
         elif self.rect.left <= 0:
             return True
+
+    def random_move_down(self):
+        self.y += self.ai_settings.alien_speed_factor * 1
+        self.rect.y = self.y
+
+    def random_move_left(self):
+        self.y += self.ai_settings.alien_speed_factor * 1
+        self.x -= 0.1
+
+    def random_move_right(self):
+        self.y += self.ai_settings.alien_speed_factor * 1
+        self.x += 0.1
+
+    def check_bottom(self):
+        """检查是否有外星人到达底部"""
+        if self.y >= self.ai_settings.screen_height:
+            return True
+
+    def initial_random_location(self):
+        """生成随机位置的外星人"""
+        initial_x = random.randint(0, self.ai_settings.screen_width - self.rect.width)
+        initial_y = 0
+        self.x = initial_x
+        self.rect.x = self.x
+        self.rect.y = initial_y

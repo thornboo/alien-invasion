@@ -31,11 +31,14 @@ def run_game():
     # 创建外星人群
     gf.create_fleet(ai_settings, screen, ship, aliens)
 
-    # 创建一行外星人
-    alien = Aliens.Alien_a(ai_settings, screen)
-
     # 开始游戏主循环
     while True:
+        # 创建一个外星人
+        if len(aliens) <= 10:
+            alien = Aliens.Alien_a(ai_settings, screen)
+            alien.initial_random_location()
+            aliens.add(alien)
+
         # 监视键盘和鼠标事件
         gf.check_events(ai_settings, screen, ship, bullets)
         if stats.game_active:
