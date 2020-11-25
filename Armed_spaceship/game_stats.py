@@ -2,6 +2,7 @@
 
 from settings import Settings
 
+
 class GameStats():
     """跟踪游戏的统计信息"""
 
