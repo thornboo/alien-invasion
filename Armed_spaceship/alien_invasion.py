@@ -47,7 +47,7 @@ def run_game():
         gf.check_events(ai_settings, screen, ship, bullets)
         # if stats.game_active:
         ship.update()
-        gf.enlarge_bullet(props, bullets, ai_settings)
+        gf.enlarge_bullet(props, bullets, ai_settings, ship)
         gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
         gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 

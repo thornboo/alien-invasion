@@ -228,8 +228,8 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         stats.game_active = False
 
 
-def enlarge_bullet(props, bullets, ai_settings):
+def enlarge_bullet(props, bullets, ai_settings, ship):
     """如果飞船吃到道具就把子弹放大一倍"""
-    if props.rect.y > 0:  # ai_settings.screen_height:
+    if props.rect.y > ai_settings.screen_height and ship.center - 2 < props.rect.x < ship.center + 2:
         for bullet in bullets:
-            bullet.radius = bullet.radius * 3
+            bullet.radius = bullet.radius * 2

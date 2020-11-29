@@ -7,7 +7,7 @@ from pygame.sprite import Sprite
 class Bullet(Sprite):
     """一个对飞船发射的子弹进行管理的类"""
 
-    def __init__(self, ai_settings, screen, ship, radius=''):
+    def __init__(self, ai_settings, screen, ship, radius=5):
         """在飞船位置创建一个子弹对象"""
         super(Bullet, self).__init__()
         self.screen = screen
@@ -16,6 +16,7 @@ class Bullet(Sprite):
         self.rect.centerx = ship.rect.centerx
         self.rect.top = ship.rect.top
         self.radius = radius
+        self.radius_max = self.radius * 2
 
         # 存储用小数表示的子弹位置
         self.x = int(self.rect.x)
@@ -33,5 +34,6 @@ class Bullet(Sprite):
 
     def draw_bullet(self, ai_settings, screen):
         """在屏幕上绘制子弹"""
-        self.radius = 6
-        pygame.draw.circle(screen, ai_settings.bullet_color, [self.x, self.y + self.radius], self.radius, 0)
+        if self.radius >= self.radius_max:
+            self.radius = self.radius_max
+        pygame.draw.circle(screen, ai_settings.bullet_color, [self.x, self.y], self.radius, 0)

@@ -20,7 +20,7 @@ class Props():
 
         # 初始化道具位置,在屏幕左上角
         self.rect.y = self.rect.height
-        self.rect.x = self.screen_rect.centerx  # random.randint(0, 900)
+        self.rect.x = random.randint(0, 900)
 
         # 储存道具的准确位置
         self.y = float(self.rect.y)
