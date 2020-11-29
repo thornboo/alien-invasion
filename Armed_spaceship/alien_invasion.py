@@ -11,6 +11,7 @@ from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
 from game_stats import GameStats
+from props import Props
 
 
 def run_game():
@@ -28,6 +29,7 @@ def run_game():
     ship = Ship(ai_settings, screen)
     aliens = Group()
     bullets = Group()
+    ps = Props(ai_settings, ship)
 
     # 创建外星人群
     # gf.create_fleet(ai_settings, screen, ship, aliens)
@@ -52,6 +54,7 @@ def run_game():
 
         # 第一种子弹击中外星人函数
         # gf.Collision_detection(aliens, bullets)
+        ps.update_props()
 
 
 run_game()
