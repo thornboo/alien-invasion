@@ -14,20 +14,22 @@ class Props():
 
         # 获取道具图像
         path = pygame.image.load(os.path.join(self.dir_name, "images", "props.bmp"))
-        self.image = pygame.transform.scale(path, (10, 10))  # 道具图片的尺寸
+        self.image = pygame.transform.scale(path, (20, 20))  # 道具图片的尺寸
         self.rect = self.image.get_rect()
+        self.screen_rect = screen.get_rect()
 
         # 初始化道具位置,在屏幕左上角
-        self.rect.x = self.rect.width
         self.rect.y = self.rect.height
+        self.rect.x = self.screen_rect.centerx  # random.randint(0, 900)
+
+        # 储存道具的准确位置
+        self.y = float(self.rect.y)
 
     def update_props(self):
         """随机出现一个道具并向下移动道具"""
-        self.rect.x += random.randint(0, 900)
-        self.rect.y += 0.1
+        self.y += 0.5
+        self.rect.y = self.y
 
-    def enlarge_bullet(self, ship, bullets):
-        """如果飞船吃到道具就把子弹放大一倍"""
-        if self.rect.y >= self.ai_settings.screen_height:
-            if self.rect.x == ship.rect.centerx:
-                bullets.radius = bullets.radius * 2
+    def blitme(self):
+        """在指定位置绘制道具"""
+        self.screen.blit(self.image, self.rect)

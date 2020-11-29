@@ -29,7 +29,7 @@ def run_game():
     ship = Ship(ai_settings, screen)
     aliens = Group()
     bullets = Group()
-    ps = Props(ai_settings, ship)
+    props = Props(screen, ai_settings)
 
     # 创建外星人群
     # gf.create_fleet(ai_settings, screen, ship, aliens)
@@ -47,14 +47,15 @@ def run_game():
         gf.check_events(ai_settings, screen, ship, bullets)
         # if stats.game_active:
         ship.update()
+        gf.enlarge_bullet(props, bullets, ai_settings)
         gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
         gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
-        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
+        props.update_props()
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets, props)
 
         # 第一种子弹击中外星人函数
         # gf.Collision_detection(aliens, bullets)
-        ps.update_props()
 
 
 run_game()

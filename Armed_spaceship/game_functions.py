@@ -49,7 +49,7 @@ def check_events(ai_settings, screen, ship, bullet):
             check_keyup_events(event, ship)
 
 
-def update_screen(ai_settings, screen, ship, aliens, bullets):
+def update_screen(ai_settings, screen, ship, aliens, bullets, props):
     """更新屏幕上的图像，并切换到新屏幕"""
     # 每次循环时都重绘屏幕
     screen.fill(ai_settings.bg_color)
@@ -59,6 +59,7 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
         bullet.draw_bullet(ai_settings, screen)
     ship.blitme()
     aliens.draw(screen)
+    props.blitme()
 
     # 让最近绘制的屏幕可见
     pygame.display.flip()
@@ -225,3 +226,10 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
 
     else:
         stats.game_active = False
+
+
+def enlarge_bullet(props, bullets, ai_settings):
+    """如果飞船吃到道具就把子弹放大一倍"""
+    if props.rect.y > 0:  # ai_settings.screen_height:
+        for bullet in bullets:
+            bullet.radius = bullet.radius * 3

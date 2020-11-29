@@ -11,7 +11,7 @@ class Settings():
         self.bg_color = (230, 230, 230)
 
         # 飞船设置
-        self.ship_speed_factor = 1.5  # 飞船速度
+        self.ship_speed_factor = 1  # 飞船速度
         self.ship_limit = 3  # 飞船个数限制
 
         # 子弹设置

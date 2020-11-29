@@ -58,22 +58,6 @@ class Alien_a(Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
-    def random_move_down(self):
-        self.y += self.ai_settings.alien_speed_factor * 1
-        self.rect.y = self.y
-
-    def random_move_left(self):
-        self.y += self.ai_settings.alien_speed_factor * 1
-        self.x -= 0.1
-        self.rect.x = self.x
-        self.rect.y = self.y
-
-    def random_move_right(self):
-        self.y += self.ai_settings.alien_speed_factor * 1
-        self.x += 0.1
-        self.rect.x = self.x
-        self.rect.y = self.y
-
     def check_bottom(self):
         """检查是否有外星人到达底部"""
         if self.y >= self.ai_settings.screen_height:
