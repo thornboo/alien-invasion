@@ -59,8 +59,9 @@ class Alien_a(Sprite):
         self.rect.y = self.y
 
     def random_move_down(self):
-        self.y += self.ai_settings.alien_speed_factor * 1
-        self.rect.y = self.y
+        # self.y += self.ai_settings.alien_speed_factor * 1
+        # self.rect.y = self.y
+        self.rect.y += self.ai_settings.alien_speed_factor * 1
 
     def random_move_left(self):
         self.y += self.ai_settings.alien_speed_factor * 1

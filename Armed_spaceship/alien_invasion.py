@@ -2,6 +2,7 @@
 
 import random
 import sys
+import time
 
 sys.path.append("..")
 import Create_alien.alien as Aliens
@@ -10,6 +11,7 @@ import pygame
 from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
+from props import Props
 from game_stats import GameStats
 
 
@@ -33,6 +35,8 @@ def run_game():
     # gf.create_fleet(ai_settings, screen, ship, aliens)
 
     # 开始游戏主循环
+    start_time = time.time()
+    prop = None
     while True:
         # 创建一个外星人
         if len(aliens) <= 10:
@@ -41,6 +45,9 @@ def run_game():
             alien.initial_random_location()
             aliens.add(alien)
 
+        if time.time() - start_time > 2 and Props.prop_num < 1:
+            prop = Props(ai_settings, screen)
+            Props.prop_num += 1
         # 监视键盘和鼠标事件
         gf.check_events(ai_settings, screen, ship, bullets)
         # if stats.game_active:
@@ -48,7 +55,9 @@ def run_game():
         gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
         gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
-        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
+        if Props.prop_num > 0:
+            prop.update()
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets, prop=prop)
 
         # 第一种子弹击中外星人函数
         # gf.Collision_detection(aliens, bullets)
