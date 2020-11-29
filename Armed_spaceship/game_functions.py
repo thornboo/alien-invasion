@@ -56,7 +56,7 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
 
     # 在飞船和外星人后面重绘所有子弹
     for bullet in bullets:
-        bullet.draw_bullet()
+        bullet.draw_bullet(ai_settings, screen)
     ship.blitme()
     aliens.draw(screen)
 
