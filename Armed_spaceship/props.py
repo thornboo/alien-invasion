@@ -20,16 +20,19 @@ class Props():
 
         # 初始化道具位置,在屏幕左上角
         self.rect.y = self.rect.height
-        self.rect.x = random.randint(0, 900)
+        self.rect.x = random.randint(0, ai_settings.screen_width)
 
         # 储存道具的准确位置
         self.y = float(self.rect.y)
 
     def update_props(self):
         """随机出现一个道具并向下移动道具"""
-        self.y += 0.5
+        self.y += 0.2
         self.rect.y = self.y
 
     def blitme(self):
         """在指定位置绘制道具"""
         self.screen.blit(self.image, self.rect)
+
+    def __del__(self):
+        print("已删除道具释放内存！")

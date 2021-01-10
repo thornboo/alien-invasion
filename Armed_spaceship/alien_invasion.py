@@ -25,7 +25,7 @@ def run_game():
     # 创建一个用于储存游戏的统计信息的实例
     stats = GameStats(ai_settings)
 
-    # 创建一艘飞船、一个子弹编组和一个外星人编组
+    # 创建一艘飞船、一个子弹编组和一个外星人编组、一个道具
     ship = Ship(ai_settings, screen)
     aliens = Group()
     bullets = Group()
@@ -54,8 +54,8 @@ def run_game():
         props.update_props()
         gf.update_screen(ai_settings, screen, ship, aliens, bullets, props)
 
-        # 第一种子弹击中外星人函数
-        # gf.Collision_detection(aliens, bullets)
+        # 第一种子弹击中外星人函数(不是pygame的冲突检测函数)
+        # gf.collision_detection(aliens, bullets)
 
 
 run_game()

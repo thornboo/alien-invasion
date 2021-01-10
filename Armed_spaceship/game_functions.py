@@ -81,9 +81,9 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
 
 
 def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
-    """响应子弹和外星人的碰撞"""
+    """第二种、响应子弹和外星人的碰撞"""
     # 删除发生碰撞的子弹和外星人
-    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    pygame.sprite.groupcollide(bullets, aliens, True, True)
 
     if len(aliens) == 0:
         # 删除现有的子弹并新建一群外星人
@@ -91,8 +91,8 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
         create_fleet(ai_settings, screen, ship, aliens)
 
 
-def Collision_detection(aliens, bullets):
-    """第一种：检测子弹是否击中外星人，若击中则删除外星人和子弹"""
+def collision_detection(aliens, bullets):
+    """第一种、检测子弹是否击中外星人，若击中则删除外星人和子弹"""
     for alien in aliens:
         for bullet in bullets:
             if alien.rect.x < bullet.x < alien.rect.x + alien.rect.width:
@@ -169,35 +169,11 @@ def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
 
 def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """检查是否有外星人位于屏幕边缘，并更新所有外星人的位置"""
-    # check_fleet_edges(ai_settings, aliens)
-    # i = 2
-    # for alien in aliens:  # 标记两个alien向左下移动
-    #     if alien.mark == "" and i > 0:
-    #         alien.random_move_left()
-    #         alien.mark = "left"
-    #         i = i - 1
-    #
-    # i = 2
-    # for alien in aliens:  # 标记两个alien向右下移动
-    #     if alien.mark == "" and i > 0:
-    #         alien.random_move_right()
-    #         alien.mark = "right"
-    #         i = i - 1
-    #
-    # for alien in aliens:
-    #     if alien.mark == "left":  # 如果alien被标记为left，就对alien使用random_move_left函数
-    #         alien.random_move_left()
-    #     if alien.mark == "right":  # 如果alien被标记为right，就对alien使用random_move_right函数
-    #         alien.random_move_right()
-    #     if alien.mark == "":  # 如果alien未被标记，则对alien使用random_move_down函数
-    #         alien.random_move_down()
 
     for alien in aliens:
         if alien.check_edges():
             alien.direction *= -1
         alien.random_move()
-        # if alien.check_bottom():
-        #     aliens.remove(alien)
 
     # 检测外星人和飞船之间的碰撞
     if pygame.sprite.spritecollideany(ship, aliens):
@@ -209,27 +185,33 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
 
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     """响应被外星人撞到的飞船"""
-    if stats.ships_left > 0:
-        # 将ship_left减1
+    if stats.ships_left > 1:
+        # 将ship_left(玩家生命值)减1
         stats.ships_left -= 1
 
         # 清空外星人列表和子弹列表
         aliens.empty()
         bullets.empty()
 
+        # 清除子弹变大特效
+        ai_settings.prop_switch = False
+
         # 创建一群新的外星人，并将飞船放到屏幕底端中央
-        # create_fleet(ai_settings, screen, ship, aliens)
         ship.center_ship()
 
-        # 暂停
+        # 暂停一段时间
         sleep(0.5)
 
     else:
-        stats.game_active = False
+        sys.exit()  # 玩家生命值为0时退出游戏
 
 
 def enlarge_bullet(props, bullets, ai_settings, ship):
-    """如果飞船吃到道具就把子弹放大一倍"""
-    if props.rect.y > ai_settings.screen_height and ship.center - 2 < props.rect.x < ship.center + 2:
+    """如果飞船吃到道具就把子弹放大一倍,且删除道具释放内存"""
+    if pygame.sprite.collide_rect(ship, props):
+        ai_settings.prop_switch = True
+    if ai_settings.prop_switch:
         for bullet in bullets:
             bullet.radius = bullet.radius * 2
+    if props.rect.y > ai_settings.screen_height:
+        del props

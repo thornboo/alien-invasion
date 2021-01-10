@@ -27,7 +27,7 @@ class Bullet(Sprite):
         """向上移动子弹"""
         # 更新表示子弹的位置的小数值
         self.y -= self.speed_factor
-        #        self.x -= self.speed_factor   #子弹斜飞
+        # self.x -= self.speed_factor   #子弹斜飞
         # 更新表示子弹rect位置
         self.rect.y = self.y
         self.rect.x = self.x
