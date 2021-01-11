@@ -89,7 +89,7 @@ def update_screen(ai_settings, screen, stats, ship, aliens, bullets, props, play
     pygame.display.flip()
 
 
-def update_bullets(ai_settings, screen, ship, aliens, bullets):
+def update_bullets(ai_settings, screen, ship, aliens, bullets, direction):
     """更新子弹的位置，并删除已消失的子弹"""
     # 更新子弹的位置
     # 检查是否有子弹击中外星人
@@ -101,10 +101,10 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
-    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets)
+    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, direction)
 
 
-def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
+def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets, direction):
     """第二种、响应子弹和外星人的碰撞"""
     # 删除发生碰撞的子弹和外星人
     pygame.sprite.groupcollide(bullets, aliens, True, True)
@@ -112,7 +112,7 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
     if len(aliens) == 0:
         # 删除现有的子弹并新建一群外星人
         bullets.empty()
-        create_fleet(ai_settings, screen, ship, aliens)
+        create_fleet(ai_settings, screen, ship, aliens, direction)
 
 
 def collision_detection(aliens, bullets):
@@ -134,8 +134,7 @@ def get_number_aliens_x(ai_settings, alien_width):
 
 def get_number_rows(ai_settings, ship_height, alien_height):
     """计算屏幕可以容纳多少个外星人"""
-    available_space_y = (ai_settings.screen_height - (2 * alien_height) - \
-                         ship_height)
+    available_space_y = (ai_settings.screen_height - (2 * alien_height) - ship_height)
     number_rows = int(available_space_y / (2 * alien_height))
     return number_rows
 
@@ -158,8 +157,8 @@ def create_fleet(ai_settings, screen, ship, aliens, direction):
     # 外星人间距为外星人宽度
     alien = Aliens.Alien_a(ai_settings, screen, direction)
     number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
-    number_rows = get_number_rows(ai_settings, ship.rect.height, alien.rect. \
-                                  height)
+    number_rows = get_number_rows(ai_settings, ship.rect.height,
+                                  alien.rect.height)
 
     # 创建外星人群
     for row_number in range(number_rows):
