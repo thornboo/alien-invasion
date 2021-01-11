@@ -12,6 +12,8 @@ from settings import Settings
 from ship import Ship
 from game_stats import GameStats
 from props import Props
+from game_stats import GameStats
+from button import Button
 
 
 def run_game():
@@ -34,6 +36,10 @@ def run_game():
     # 创建外星人群
     # gf.create_fleet(ai_settings, screen, ship, aliens)
 
+    pygame.display.set_caption("Alien Invasion")
+    # 创建Play按钮
+    play_button = Button(ai_settings, screen, "Play")
+
     # 开始游戏主循环
     while True:
         # 创建一个外星人
@@ -52,7 +58,7 @@ def run_game():
         gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
         props.update_props()
-        gf.update_screen(ai_settings, screen, ship, aliens, bullets, props)
+        gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, props, play_button)
 
         # 第一种子弹击中外星人函数(不是pygame的冲突检测函数)
         # gf.collision_detection(aliens, bullets)
