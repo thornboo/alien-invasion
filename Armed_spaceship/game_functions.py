@@ -38,15 +38,35 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def check_events(ai_settings, screen, ship, bullet):
+def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets, direction):
     """响应按键和鼠标事件"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, ai_settings, screen, ship, bullet)
+            check_keydown_events(event, ai_settings, screen, ship, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y,
+                              direction)
+
+
+def check_play_button(ai_settings, screen, stats, play_button, ship, aliens, bullets, mouse_x, mouse_y, direction):
+    """在玩家单击Play按钮时开始新游戏"""
+    if play_button.rect.collidepoint(mouse_x, mouse_y):
+        # 重置游戏信息
+        stats.reset_stats()
+        stats.game_active = True
+
+        # 清空外星人和子弹列表
+        aliens.empty()
+        bullets.empty()
+
+        # 创建一群新的外星人，并让飞船居中
+        create_fleet(ai_settings, screen, ship, aliens, direction)
+        ship.center_ship()
 
 
 def update_screen(ai_settings, screen, stats, ship, aliens, bullets, props, play_button):
@@ -120,9 +140,9 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     return number_rows
 
 
-def create_alien(ai_settings, screen, aliens, alien_number, row_number):
+def create_alien(ai_settings, screen, aliens, alien_number, row_number, direction):
     """创建一个外星人并将其放在当前行"""
-    alien = Aliens.Alien_a(ai_settings, screen)
+    alien = Aliens.Alien_a(ai_settings, screen, direction)
     alien_width = alien.rect.width
     alien.x = alien_width + 2 * alien_width * alien_number
     alien.rect.x = alien.x
@@ -132,11 +152,11 @@ def create_alien(ai_settings, screen, aliens, alien_number, row_number):
         aliens.add(alien)
 
 
-def create_fleet(ai_settings, screen, ship, aliens):
+def create_fleet(ai_settings, screen, ship, aliens, direction):
     """创建外星人群"""
     # 创建一个外星人，获得单个外星人的宽度和高度；并计算一行可以容纳多少个外星人
     # 外星人间距为外星人宽度
-    alien = Aliens.Alien_a(ai_settings, screen)
+    alien = Aliens.Alien_a(ai_settings, screen, direction)
     number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
     number_rows = get_number_rows(ai_settings, ship.rect.height, alien.rect. \
                                   height)
@@ -144,7 +164,7 @@ def create_fleet(ai_settings, screen, ship, aliens):
     # 创建外星人群
     for row_number in range(number_rows):
         for alien_number in range(number_aliens_x):
-            create_alien(ai_settings, screen, aliens, alien_number, row_number)
+            create_alien(ai_settings, screen, aliens, alien_number, row_number, direction)
 
 
 def check_fleet_edges(ai_settings, aliens):
@@ -207,7 +227,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         sleep(0.5)
 
     else:
-        sys.exit()  # 玩家生命值为0时退出游戏
+        stats.game_active = False
 
 
 def enlarge_bullet(props, bullets, ai_settings, ship):

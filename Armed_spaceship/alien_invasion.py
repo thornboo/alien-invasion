@@ -42,7 +42,7 @@ def run_game():
 
     # 开始游戏主循环
     while True:
-        # 创建一个外星人
+        # 创建随机外星人
         if len(aliens) <= 10:
             direction = random.choice([-1, 0, 1])  # 代表左，直， 右
             alien = Aliens.Alien_a(ai_settings, screen, direction)  # 初始化的时候随机给一个方向
@@ -50,14 +50,14 @@ def run_game():
             aliens.add(alien)
 
         # 监视键盘和鼠标事件
-        gf.check_events(ai_settings, screen, ship, bullets)
-        # if stats.game_active:
-        ship.update()
-        gf.enlarge_bullet(props, bullets, ai_settings, ship)
-        gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
-        gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
+        gf.check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets, direction)
+        if stats.game_active:
+            ship.update()
+            gf.enlarge_bullet(props, bullets, ai_settings, ship)
+            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
-        props.update_props()
+            props.update_props()
         gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, props, play_button)
 
         # 第一种子弹击中外星人函数(不是pygame的冲突检测函数)

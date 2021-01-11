@@ -5,6 +5,7 @@ class Button():
     def __init__(self, ai_settings, screen, msg):
         """初始化按钮的属性"""
         self.screen = screen
+        self.ai_settings = ai_settings
         self.screen_rect = screen.get_rect()
 
         # 设置按钮的尺寸和其他属性
